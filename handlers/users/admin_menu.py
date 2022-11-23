@@ -13,7 +13,7 @@ def split_messages(get_list, count):
 
 
 # Обработка кнопки "Управление товарами"
-@dp.message_handler(IsAdmin(), text="🎁 Управление товарами 🖍", state="*")
+@dp.message_handler(IsAdmin(), text="Управление формулами", state="*")
 async def general_functions(message: types.Message, state: FSMContext):
     await state.finish()
     await message.answer("🎁 Редактирование товаров, разделов и категорий 📜",

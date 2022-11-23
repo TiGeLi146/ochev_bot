@@ -18,12 +18,10 @@ async def bot_start(message: types.Message, state: FSMContext):
     get_user_id = get_userx(user_id=message.from_user.id)
     if get_user_id is None:
         add_userx(message.from_user.id, message.from_user.username)
-    else:
-        if first_name != get_user_id[3]:
-            update_userx(get_user_id[1], user_name=first_name)
-        if message.from_user.username is not None:
-            if message.from_user.username.lower() != get_user_id[2]:
-                update_userx(get_user_id[1], user_login=message.from_user.username.lower())
+    # else:
+    #     if message.from_user.username is not None:
+    #         if message.from_user.username.lower() != get_user_id[2]:
+    #             update_userx(get_user_id[1], user_login=message.from_user.username.lower())
 
     await message.answer("<b>Бот готов к использованию.</b>\n"
                          "Если не появились вспомогательные кнопки\n"
