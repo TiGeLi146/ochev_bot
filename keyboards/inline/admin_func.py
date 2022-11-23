@@ -1,6 +1,6 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-from utils.db_api.sqlite import get_paymentx, get_positionx, get_itemsx, get_positionsx, get_categoryx
+from utils.db_api.sqlite import get_positionx, get_positionsx, get_categoryx
 
 
 def edit_category_func(category_id, remover):
@@ -37,7 +37,6 @@ def confirm_remove_func(category_id, remover):
 def open_edit_position_func(position_id, category_id, remover):
     open_item_keyboard = InlineKeyboardMarkup()
     get_position = get_positionx("*", position_id=position_id)
-    get_items = get_itemsx("*", position_id=position_id)
 
     messages = "<b>Редактирование позиции:</b>\n" \
                "➖➖➖➖➖➖➖➖➖➖➖➖➖\n" \
