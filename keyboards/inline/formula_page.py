@@ -2,6 +2,8 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 from utils.db_api.sqlite import *
 
+count_page = 10
+
 
 ################################################################################################
 ################################# СТРАНИЦЫ ИЗМЕНЕНИЯ КАТЕГОРИЙ #################################
@@ -234,12 +236,12 @@ def position_open_edit_ap(remover, category_id):
     x = 0
     keyboard = InlineKeyboardMarkup()
     get_positions = get_positionsx("*", category_id=category_id)
-    for a in range(remover, len(get_positions)):
-        if x < count_page:
-            get_items = get_itemsx("*", position_id=get_positions[a][1])
-            keyboard.add(InlineKeyboardButton(f"{get_positions[a][2]} | {get_positions[a][3]}руб | {len(get_items)}шт",
-                                              callback_data=f"position_edit:{get_positions[a][1]}:{remover}:{category_id}"))
-        x += 1
+    # for a in range(remover, len(get_positions)):
+    #     if x < count_page:
+    #         get_items = get_itemsx("*", position_id=get_positions[a][1])
+    #         keyboard.add(InlineKeyboardButton(f"{get_positions[a][2]} | {get_positions[a][3]}руб | {len(get_items)}шт",
+    #                                           callback_data=f"position_edit:{get_positions[a][1]}:{remover}:{category_id}"))
+    #     x += 1
     if len(get_positions) <= 10:
         pass
     elif len(get_positions) > count_page and remover < 10:
@@ -270,10 +272,10 @@ def position_edit_next_page_ap(remover, category_id):
     keyboard = InlineKeyboardMarkup()
     get_positions = get_positionsx("*", category_id=category_id)
     for a in range(remover, len(get_positions)):
-        if x < count_page:
-            get_items = get_itemsx("*", position_id=get_positions[a][1])
-            keyboard.add(InlineKeyboardButton(f"{get_positions[a][2]} | {get_positions[a][3]}руб | {len(get_items)}шт",
-                                              callback_data=f"position_edit:{get_positions[a][1]}:{remover}:{category_id}"))
+        # if x < count_page:
+        #     get_items = get_itemsx("*", position_id=get_positions[a][1])
+        #     keyboard.add(InlineKeyboardButton(f"{get_positions[a][2]} | {get_positions[a][3]}руб | {len(get_items)}шт",
+        #                                       callback_data=f"position_edit:{get_positions[a][1]}:{remover}:{category_id}"))
         x += 1
     if remover + count_page >= len(get_positions):
         prev_kb = InlineKeyboardButton("⬅ Назад ⬅",
@@ -297,12 +299,12 @@ def position_edit_previous_page_ap(remover, category_id):
     x = 0
     keyboard = InlineKeyboardMarkup()
     get_positions = get_positionsx("*", category_id=category_id)
-    for a in range(remover, len(get_positions)):
-        if x < count_page:
-            get_items = get_itemsx("*", position_id=get_positions[a][1])
-            keyboard.add(InlineKeyboardButton(f"{get_positions[a][2]} | {get_positions[a][3]}руб | {len(get_items)}шт",
-                                              callback_data=f"position_edit:{get_positions[a][1]}:{remover}:{category_id}"))
-        x += 1
+    # for a in range(remover, len(get_positions)):
+    #     if x < count_page:
+    #         get_items = get_itemsx("*", position_id=get_positions[a][1])
+    #         keyboard.add(InlineKeyboardButton(f"{get_positions[a][2]} | {get_positions[a][3]}руб | {len(get_items)}шт",
+    #                                           callback_data=f"position_edit:{get_positions[a][1]}:{remover}:{category_id}"))
+    #     x += 1
     if remover <= 0:
         nomer_kb = InlineKeyboardButton("🔸 1 🔸", callback_data="...")
         next_kb = InlineKeyboardButton("➡ Далее ➡",
