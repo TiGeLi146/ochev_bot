@@ -5,7 +5,7 @@ from data.config import ADMINS as admins
 
 def check_user_out_func(user_id):
     menu_default = ReplyKeyboardMarkup(resize_keyboard=True)
-    menu_default.row("Смотреть формулы", "🖍 Добавить формулы", "ℹ FAQ")
+    menu_default.row("Смотреть формулы", "🖍 Добавить формулы")
     if str(user_id) in admins:
         menu_default.row("Управление формулами")
     return menu_default

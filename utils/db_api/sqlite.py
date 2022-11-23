@@ -174,12 +174,12 @@ def remove_categoryx(**kwargs):
 
 
 # Добавление формулы в БД
-def add_positionx(position_id, position_name, position_price):
+def add_positionx(position_id, position_name, position_price, category_id):
     with sqlite3.connect(path_to_db) as db:
         db.execute("INSERT INTO storage_position "
-                   "(position_id, position_name, position_price) "
-                   "VALUES (?, ?, ?)",
-                   [position_id, position_name, position_price])
+                   "(position_id, position_name, position_price, category_id) "
+                   "VALUES (?, ?, ?, ?)",
+                   [position_id, position_name, position_price, category_id])
         db.commit()
 
 
@@ -230,6 +230,14 @@ def remove_positionx(**kwargs):
         db.commit()
 
 
+# Очистка категорий
+def clear_positionx():
+    with sqlite3.connect(path_to_db) as db:
+        sql = "DELETE FROM storage_position"
+        db.execute(sql)
+        db.commit()
+
+
 # Создание всех таблиц для БД
 def create_bdx():
     with sqlite3.connect(path_to_db) as db:
@@ -242,7 +250,7 @@ def create_bdx():
         else:
             db.execute("CREATE TABLE storage_users("
                        "increment INTEGER PRIMARY KEY AUTOINCREMENT, "
-                       "user_id INTEGER, list_of_formulas_id")
+                       "user_id INTEGER, list_of_formulas_id INTEGER)")
             print("DB was not found(1/3) | Creating...")
 
         # Создание БД с хранением категорий

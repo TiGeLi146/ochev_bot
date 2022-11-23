@@ -320,3 +320,179 @@ def position_edit_previous_page_ap(remover, category_id):
     keyboard.add(InlineKeyboardButton("⬅ Вернуться ↩",
                                       callback_data=f"back_to_category"))
     return keyboard
+
+
+################################################################################################
+################################## СТРАНИЦЫ ПОКУПКИ ТОВАРОВ #################################
+# Стартовые страницы категорий при покупке товара
+def buy_item_open_category_ap(remover):
+    x = 0
+    keyboard = InlineKeyboardMarkup()
+    get_categories = get_all_categoriesx()
+    for a in range(remover, len(get_categories)):
+        if x < count_page:
+            keyboard.add(InlineKeyboardButton(f"{get_categories[a][2]}",
+                                              callback_data=f"buy_open_category:{get_categories[a][1]}"))
+        x += 1
+    if len(get_categories) <= 10:
+        pass
+    elif len(get_categories) > count_page and remover < 10:
+        nomer_kb = InlineKeyboardButton("🔸 1 🔸", callback_data="...")
+        next_kb = InlineKeyboardButton("➡ Далее ➡",
+                                       callback_data=f"buy_category_nextp:{remover + count_page}")
+        keyboard.add(nomer_kb, next_kb)
+    elif remover + count_page >= len(get_categories):
+        prev_kb = InlineKeyboardButton("⬅ Назад ⬅",
+                                       callback_data=f"buy_category_prevp:{remover - count_page}")
+        nomer_kb = InlineKeyboardButton(f"🔸 {str(remover + count_page)[:-1]} 🔸", callback_data="...")
+        keyboard.add(prev_kb, nomer_kb)
+    else:
+        next_kb = InlineKeyboardButton("➡ Далее ➡",
+                                       callback_data=f"buy_category_nextp:{remover + count_page}")
+        nomer_kb = InlineKeyboardButton(f"🔸 {str(remover + count_page)[:-1]} 🔸", callback_data="...")
+        prev_kb = InlineKeyboardButton("⬅ Назад ⬅",
+                                       callback_data=f"buy_category_prevp:{remover - count_page}")
+        keyboard.add(prev_kb, nomer_kb, next_kb)
+    return keyboard
+
+
+# Следующая страница категорий при покупке товара
+def buy_item_next_page_category_ap(remover):
+    x = 0
+    keyboard = InlineKeyboardMarkup()
+    get_categories = get_all_categoriesx()
+    for a in range(remover, len(get_categories)):
+        if x < count_page:
+            keyboard.add(InlineKeyboardButton(f"{get_categories[a][2]}",
+                                              callback_data=f"buy_open_category:{get_categories[a][1]}"))
+        x += 1
+    if remover + count_page >= len(get_categories):
+        prev_kb = InlineKeyboardButton("⬅ Назад ⬅",
+                                       callback_data=f"buy_category_prevp:{remover - count_page}")
+        nomer_kb = InlineKeyboardButton(f"🔸 {str(remover + count_page)[:-1]} 🔸", callback_data="...")
+        keyboard.add(prev_kb, nomer_kb)
+    else:
+        next_kb = InlineKeyboardButton("➡ Далее ➡",
+                                       callback_data=f"buy_category_nextp:{remover + count_page}")
+        nomer_kb = InlineKeyboardButton(f"🔸 {str(remover + count_page)[:-1]} 🔸", callback_data="...")
+        prev_kb = InlineKeyboardButton("⬅ Назад ⬅",
+                                       callback_data=f"buy_category_prevp:{remover - count_page}")
+        keyboard.add(prev_kb, nomer_kb, next_kb)
+    return keyboard
+
+
+# Предыдующая страница категорий при покупке товара
+def buy_item_previous_page_category_ap(remover):
+    x = 0
+    keyboard = InlineKeyboardMarkup()
+    get_categories = get_all_categoriesx()
+    for a in range(remover, len(get_categories)):
+        if x < count_page:
+            keyboard.add(InlineKeyboardButton(f"{get_categories[a][2]}",
+                                              callback_data=f"buy_open_category:{get_categories[a][1]}"))
+        x += 1
+    if remover <= 0:
+        nomer_kb = InlineKeyboardButton("🔸 1 🔸", callback_data="...")
+        next_kb = InlineKeyboardButton("➡ Далее ➡",
+                                       callback_data=f"buy_category_nextp:{remover + count_page}")
+        keyboard.add(nomer_kb, next_kb)
+    else:
+        next_kb = InlineKeyboardButton("➡ Далее ➡",
+                                       callback_data=f"buy_category_nextp:{remover + count_page}")
+        nomer_kb = InlineKeyboardButton(f"🔸 {str(remover + count_page)[:-1]} 🔸", callback_data="...")
+        prev_kb = InlineKeyboardButton("⬅ Назад ⬅",
+                                       callback_data=f"buy_category_prevp:{remover - count_page}")
+        keyboard.add(prev_kb, nomer_kb, next_kb)
+    return keyboard
+
+
+########################################### ПОЗИЦИИ ##########################################
+# Стартовые страницы позиций для покупки товаров
+def buy_item_item_position_ap(remover, category_id):
+    x = 0
+    keyboard = InlineKeyboardMarkup()
+    get_positions = get_positionsx("*", category_id=category_id)
+    # for a in range(remover, len(get_positions)):
+        # if x < count_page:
+        #     get_items = get_itemsx("*", position_id=get_positions[a][1])
+        #     keyboard.add(InlineKeyboardButton(f"{get_positions[a][2]} | {get_positions[a][3]}руб | {len(get_items)}шт",
+        #                                       callback_data=f"buy_open_position:{get_positions[a][1]}:{remover}:{category_id}"))
+        # x += 1
+    if len(get_positions) <= 10:
+        pass
+    elif len(get_positions) > count_page and remover < 10:
+        nomer_kb = InlineKeyboardButton("🔸 1 🔸", callback_data="...")
+        next_kb = InlineKeyboardButton("➡ Далее ➡",
+                                       callback_data=f"buy_position_nextp:{remover + count_page}:{category_id}")
+        keyboard.add(nomer_kb, next_kb)
+    elif remover + count_page >= len(get_positions):
+        prev_kb = InlineKeyboardButton("⬅ Назад ⬅",
+                                       callback_data=f"buy_position_prevp:{remover - count_page}:{category_id}")
+        nomer_kb = InlineKeyboardButton(f"🔸 {str(remover + count_page)[:-1]} 🔸", callback_data="...")
+        keyboard.add(prev_kb, nomer_kb)
+    else:
+        next_kb = InlineKeyboardButton("➡ Далее ➡",
+                                       callback_data=f"buy_position_nextp:{remover + count_page}:{category_id}")
+        nomer_kb = InlineKeyboardButton(f"🔸 {str(remover + count_page)[:-1]} 🔸", callback_data="...")
+        prev_kb = InlineKeyboardButton("⬅ Назад ⬅",
+                                       callback_data=f"buy_position_prevp:{remover - count_page}:{category_id}")
+        keyboard.add(prev_kb, nomer_kb, next_kb)
+    keyboard.add(InlineKeyboardButton("⬅ Вернуться ↩",
+                                      callback_data=f"back_buy_item_to_category"))
+    return keyboard
+
+
+# Следующая страница позиций для покупки товаров
+def item_buy_next_page_position_ap(remover, category_id):
+    x = 0
+    keyboard = InlineKeyboardMarkup()
+    get_positions = get_positionsx("*", category_id=category_id)
+    # for a in range(remover, len(get_positions)):
+        # if x < count_page:
+        #     get_items = get_itemsx("*", position_id=get_positions[a][1])
+        #     keyboard.add(InlineKeyboardButton(f"{get_positions[a][2]} | {get_positions[a][3]}руб | {len(get_items)}шт",
+        #                                       callback_data=f"buy_open_position:{get_positions[a][1]}:{remover}:{category_id}"))
+        # x += 1
+    if remover + count_page >= len(get_positions):
+        prev_kb = InlineKeyboardButton("⬅ Назад ⬅",
+                                       callback_data=f"buy_position_prevp:{remover - count_page}:{category_id}")
+        nomer_kb = InlineKeyboardButton(f"🔸 {str(remover + count_page)[:-1]} 🔸", callback_data="...")
+        keyboard.add(prev_kb, nomer_kb)
+    else:
+        next_kb = InlineKeyboardButton("➡ Далее ➡",
+                                       callback_data=f"buy_position_nextp:{remover + count_page}:{category_id}")
+        nomer_kb = InlineKeyboardButton(f"🔸 {str(remover + count_page)[:-1]} 🔸", callback_data="...")
+        prev_kb = InlineKeyboardButton("⬅ Назад ⬅",
+                                       callback_data=f"buy_position_prevp:{remover - count_page}:{category_id}")
+        keyboard.add(prev_kb, nomer_kb, next_kb)
+    keyboard.add(InlineKeyboardButton("⬅ Вернуться ↩",
+                                      callback_data=f"back_buy_item_to_category"))
+    return keyboard
+
+
+# Предыдующая страница позиций для покупки товаров
+def item_buy_previous_page_position_ap(remover, category_id):
+    x = 0
+    keyboard = InlineKeyboardMarkup()
+    get_positions = get_positionsx("*", category_id=category_id)
+    # for a in range(remover, len(get_positions)):
+    #     if x < count_page:
+    #         get_items = get_itemsx("*", position_id=get_positions[a][1])
+    #         keyboard.add(InlineKeyboardButton(f"{get_positions[a][2]} | {get_positions[a][3]}руб | {len(get_items)}шт",
+    #                                           callback_data=f"buy_open_position:{get_positions[a][1]}:{remover}:{category_id}"))
+    #     x += 1
+    if remover <= 0:
+        nomer_kb = InlineKeyboardButton("🔸 1 🔸", callback_data="...")
+        next_kb = InlineKeyboardButton("➡ Далее ➡",
+                                       callback_data=f"buy_position_nextp:{remover + count_page}:{category_id}")
+        keyboard.add(nomer_kb, next_kb)
+    else:
+        next_kb = InlineKeyboardButton("➡ Далее ➡",
+                                       callback_data=f"buy_position_nextp:{remover + count_page}:{category_id}")
+        nomer_kb = InlineKeyboardButton(f"🔸 {str(remover + count_page)[:-1]} 🔸", callback_data="...")
+        prev_kb = InlineKeyboardButton("⬅ Назад ⬅",
+                                       callback_data=f"buy_position_prevp:{remover - count_page}:{category_id}")
+        keyboard.add(prev_kb, nomer_kb, next_kb)
+    keyboard.add(InlineKeyboardButton("⬅ Вернуться ↩",
+                                      callback_data=f"back_buy_item_to_category"))
+    return keyboard

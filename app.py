@@ -8,7 +8,7 @@ from utils.set_bot_commands import set_default_commands
 
 async def on_startup(dispatcher):
     filters.setup(dp)
-    middlewares.setup(dp)
+    middlewares.setup()
     await set_default_commands(dispatcher)
     await on_startup_notify(dispatcher)
 
