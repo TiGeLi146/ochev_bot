@@ -275,7 +275,7 @@ def create_bdx():
             db.execute("CREATE TABLE storage_position("
                        "increment INTEGER PRIMARY KEY AUTOINCREMENT,"
                        "position_id INTEGER, position_name TEXT, "
-                       "position_price INTEGER"
+                       "position_price INTEGER,"
                        "category_id INTEGER)")
             print("DB was not found(3/3) | Creating...")
 

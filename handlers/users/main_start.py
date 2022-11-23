@@ -17,15 +17,7 @@ async def bot_start(message: types.Message, state: FSMContext):
     first_name = clear_firstname(message.from_user.first_name)
     get_user_id = get_userx(user_id=message.from_user.id)
     if get_user_id is None:
-        if message.from_user.username is not None:
-            get_user_login = get_userx(user_login=message.from_user.username)
-            if get_user_login is None:
-                add_userx(message.from_user.id, message.from_user.username.lower())
-            else:
-                delete_userx(user_login=message.from_user.username)
-                add_userx(message.from_user.id, message.from_user.username.lower())
-        else:
-            add_userx(message.from_user.id, message.from_user.username)
+        add_userx(message.from_user.id, message.from_user.username)
     else:
         if first_name != get_user_id[3]:
             update_userx(get_user_id[1], user_name=first_name)
