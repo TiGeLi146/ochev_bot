@@ -490,3 +490,19 @@ def item_buy_previous_page_position_ap(remover, category_id):
     keyboard.add(InlineKeyboardButton("⬅ Вернуться ↩",
                                       callback_data=f"back_buy_item_to_category"))
     return keyboard
+
+
+def print_formula(remover, category_id):
+    x = 0
+    keyboard = InlineKeyboardMarkup()
+    get_positions = get_positionsx("*", category_id=category_id)
+    for a in range(remover, len(get_positions)):
+        if x < count_page:
+            keyboard.add(InlineKeyboardButton(f"{get_positions[a][2]} | {get_positions[a][3]}",
+                                              callback_data=f"buy_open_position:{get_positions[a][1]}:{remover}:{a}"))
+        x += 1
+    keyboard.add(InlineKeyboardButton("⬅ Вернуться ↩",
+                                      callback_data=f"back_buy_item_to_category"))
+    return keyboard
+
+

@@ -344,7 +344,7 @@ async def next_page_for_edit_position(call: CallbackQuery, state: FSMContext):
     category_id = int(call.data.split(":")[2])
 
     get_kb = position_edit_next_page_ap(remover, category_id)
-    await bot.edit_message_text("<b>Выберите категорию с нужной вам формулой</b>",
+    await bot.edit_message_text("<b>Выберите нужную вам формулу</b>",
                                 call.from_user.id,
                                 call.message.message_id,
                                 reply_markup=get_kb)
@@ -357,7 +357,7 @@ async def previous_page_for_edit_position(call: CallbackQuery, state: FSMContext
     category_id = int(call.data.split(":")[2])
 
     get_kb = position_edit_previous_page_ap(remover, category_id)
-    await bot.edit_message_text("<b>Выберите категорию с нужной вам формулой</b>",
+    await bot.edit_message_text("<b>Выберите нужную вам формулу</b>",
                                 call.from_user.id,
                                 call.message.message_id,
                                 reply_markup=get_kb)
@@ -369,17 +369,12 @@ async def open_for_edit_position(call: CallbackQuery, state: FSMContext):
     position_id = int(call.data.split(":")[1])
     remover = int(call.data.split(":")[2])
     category_id = int(call.data.split(":")[3])
-    get_position = get_positionx("*", position_id=position_id)
-    messages, keyboard, have_photo = open_edit_position_func(position_id, category_id, remover)
+    messages, keyboard = open_edit_position_func(position_id, category_id, remover)
 
-    if have_photo:
-        await bot.delete_message(call.from_user.id, call.message.message_id)
-        await bot.send_photo(call.from_user.id, get_position[5], messages, reply_markup=keyboard)
-    else:
-        await bot.edit_message_text(messages,
-                                    call.from_user.id,
-                                    call.message.message_id,
-                                    reply_markup=keyboard)
+    await bot.edit_message_text(messages,
+                                call.from_user.id,
+                                call.message.message_id,
+                                reply_markup=keyboard)
 
 
 # Возвращение к выбору формулы для изменения

@@ -34,7 +34,7 @@ async def open_category_for_buy_item(call: CallbackQuery, state: FSMContext):
 
     get_kb = buy_item_item_position_ap(0, category_id)
     if len(get_positions) >= 1:
-        await call.message.edit_text("<b>Выберите нужный предмет:</b>",
+        await call.message.edit_text("<b>Выберите формулу:</b>",
                                      reply_markup=get_kb)
     else:
         await call.answer(f"Формулы в категории {get_category[2]} отсутствуют.")
@@ -94,3 +94,18 @@ async def buy_item_next_page_position(call: CallbackQuery, state: FSMContext):
     await call.message.delete()
     await call.message.answer("<b>Выберите нужную формулу:</b>",
                               reply_markup=buy_item_item_position_ap(remover, category_id))
+
+
+# Отправление формулы отдельным сообщением
+@dp.callback_query_handler(text_startswith="buy_open_position", state="*")
+async def buy_item_next_page_position(call: CallbackQuery, state: FSMContext):
+    position_id = int(call.data.split(":")[1])
+    remover = int(call.data.split(":")[2])
+    category_id = int(call.data.split(":")[3])
+
+    print(call.data)
+
+    get_positions = get_positionx("*", category_id=category_id, position_id=position_id)
+
+    await call.message.edit_text(f"{get_positions[2]} | {get_positions[3]}",
+                                 reply_markup=print_formula(remover, category_id))
