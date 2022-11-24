@@ -123,7 +123,7 @@ def position_create_next_page_ap(remover):
     return keyboard
 
 
-# Предыдующая страница выбора категории для добавления формулы
+# Предыдущая страница выбора категории для добавления формулы
 def position_create_previous_page_ap(remover):
     x = 0
     keyboard = InlineKeyboardMarkup()
@@ -205,7 +205,7 @@ def position_edit_next_page_category_ap(remover):
     return keyboard
 
 
-# Предыдующая страница категорий при изменении формулы
+# Предыдущая страница категорий при изменении формулы
 def position_edit_previous_page_category_ap(remover):
     x = 0
     keyboard = InlineKeyboardMarkup()
@@ -236,12 +236,11 @@ def position_open_edit_ap(remover, category_id):
     x = 0
     keyboard = InlineKeyboardMarkup()
     get_positions = get_positionsx("*", category_id=category_id)
-    # for a in range(remover, len(get_positions)):
-    #     if x < count_page:
-    #         get_items = get_itemsx("*", position_id=get_positions[a][1])
-    #         keyboard.add(InlineKeyboardButton(f"{get_positions[a][2]} | {get_positions[a][3]}руб | {len(get_items)}шт",
-    #                                           callback_data=f"position_edit:{get_positions[a][1]}:{remover}:{category_id}"))
-    #     x += 1
+    for a in range(remover, len(get_positions)):
+        if x < count_page:
+            keyboard.add(InlineKeyboardButton(f"{get_positions[a][2]} | {get_positions[a][3]}",
+                                              callback_data=f"position_edit:{get_positions[a][1]}:{remover}:{category_id}"))
+        x += 1
     if len(get_positions) <= 10:
         pass
     elif len(get_positions) > count_page and remover < 10:
@@ -272,10 +271,9 @@ def position_edit_next_page_ap(remover, category_id):
     keyboard = InlineKeyboardMarkup()
     get_positions = get_positionsx("*", category_id=category_id)
     for a in range(remover, len(get_positions)):
-        # if x < count_page:
-        #     get_items = get_itemsx("*", position_id=get_positions[a][1])
-        #     keyboard.add(InlineKeyboardButton(f"{get_positions[a][2]} | {get_positions[a][3]}руб | {len(get_items)}шт",
-        #                                       callback_data=f"position_edit:{get_positions[a][1]}:{remover}:{category_id}"))
+        if x < count_page:
+            keyboard.add(InlineKeyboardButton(f"{get_positions[a][2]} | {get_positions[a][3]}",
+                                              callback_data=f"position_edit:{get_positions[a][1]}:{remover}:{category_id}"))
         x += 1
     if remover + count_page >= len(get_positions):
         prev_kb = InlineKeyboardButton("⬅ Назад ⬅",
@@ -294,17 +292,16 @@ def position_edit_next_page_ap(remover, category_id):
     return keyboard
 
 
-# Предыдующая страница формул для их изменения
+# Предыдущая страница формул для их изменения
 def position_edit_previous_page_ap(remover, category_id):
     x = 0
     keyboard = InlineKeyboardMarkup()
     get_positions = get_positionsx("*", category_id=category_id)
-    # for a in range(remover, len(get_positions)):
-    #     if x < count_page:
-    #         get_items = get_itemsx("*", position_id=get_positions[a][1])
-    #         keyboard.add(InlineKeyboardButton(f"{get_positions[a][2]} | {get_positions[a][3]}руб | {len(get_items)}шт",
-    #                                           callback_data=f"position_edit:{get_positions[a][1]}:{remover}:{category_id}"))
-    #     x += 1
+    for a in range(remover, len(get_positions)):
+        if x < count_page:
+            keyboard.add(InlineKeyboardButton(f"{get_positions[a][2]} | {get_positions[a][3]}",
+                                              callback_data=f"position_edit:{get_positions[a][1]}:{remover}:{category_id}"))
+        x += 1
     if remover <= 0:
         nomer_kb = InlineKeyboardButton("🔸 1 🔸", callback_data="...")
         next_kb = InlineKeyboardButton("➡ Далее ➡",
@@ -323,8 +320,8 @@ def position_edit_previous_page_ap(remover, category_id):
 
 
 ################################################################################################
-################################## СТРАНИЦЫ ПОКУПКИ ТОВАРОВ #################################
-# Стартовые страницы категорий при покупке товара
+################################## СТРАНИЦЫ ПРОСМОТРА ФОРМУЛ #################################
+# Стартовые страницы категорий при просмотре формул
 def buy_item_open_category_ap(remover):
     x = 0
     keyboard = InlineKeyboardMarkup()
@@ -356,7 +353,7 @@ def buy_item_open_category_ap(remover):
     return keyboard
 
 
-# Следующая страница категорий при покупке товара
+# Следующая страница категорий при просмотре формул
 def buy_item_next_page_category_ap(remover):
     x = 0
     keyboard = InlineKeyboardMarkup()
@@ -381,7 +378,7 @@ def buy_item_next_page_category_ap(remover):
     return keyboard
 
 
-# Предыдующая страница категорий при покупке товара
+# Предыдущая страница категорий при просмотре формул
 def buy_item_previous_page_category_ap(remover):
     x = 0
     keyboard = InlineKeyboardMarkup()
@@ -406,15 +403,15 @@ def buy_item_previous_page_category_ap(remover):
     return keyboard
 
 
-########################################### ПОЗИЦИИ ##########################################
-# Стартовые страницы позиций для покупки товаров
+########################################### ФОРМУЛЫ ##########################################
+# Стартовые страницы формул
 def buy_item_item_position_ap(remover, category_id):
     x = 0
     keyboard = InlineKeyboardMarkup()
     get_positions = get_positionsx("*", category_id=category_id)
     for a in range(remover, len(get_positions)):
         if x < count_page:
-            keyboard.add(InlineKeyboardButton(f"{get_positions[a][2]} | {get_positions[a][3]}руб | шт",
+            keyboard.add(InlineKeyboardButton(f"{get_positions[a][2]} | {get_positions[a][3]}",
                                               callback_data=f"buy_open_position:{get_positions[a][1]}:{remover}:{category_id}"))
         x += 1
     if len(get_positions) <= 10:
@@ -441,14 +438,14 @@ def buy_item_item_position_ap(remover, category_id):
     return keyboard
 
 
-# Следующая страница позиций для покупки товаров
+# Следующая страница формул
 def item_buy_next_page_position_ap(remover, category_id):
     x = 0
     keyboard = InlineKeyboardMarkup()
     get_positions = get_positionsx("*", category_id=category_id)
     for a in range(remover, len(get_positions)):
         if x < count_page:
-            keyboard.add(InlineKeyboardButton(f"{get_positions[a][2]} | {get_positions[a][3]}руб | шт",
+            keyboard.add(InlineKeyboardButton(f"{get_positions[a][2]} | {get_positions[a][3]}",
                                               callback_data=f"buy_open_position:{get_positions[a][1]}:{remover}:{category_id}"))
         x += 1
     if remover + count_page >= len(get_positions):
@@ -468,14 +465,14 @@ def item_buy_next_page_position_ap(remover, category_id):
     return keyboard
 
 
-# Предыдующая страница позиций для покупки товаров
+# Предыдущая страница формул
 def item_buy_previous_page_position_ap(remover, category_id):
     x = 0
     keyboard = InlineKeyboardMarkup()
     get_positions = get_positionsx("*", category_id=category_id)
     for a in range(remover, len(get_positions)):
         if x < count_page:
-            keyboard.add(InlineKeyboardButton(f"{get_positions[a][2]} | {get_positions[a][3]}руб | шт",
+            keyboard.add(InlineKeyboardButton(f"{get_positions[a][2]} | {get_positions[a][3]}",
                                               callback_data=f"buy_open_position:{get_positions[a][1]}:{remover}:{category_id}"))
         x += 1
     if remover <= 0:

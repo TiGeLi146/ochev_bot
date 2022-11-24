@@ -12,11 +12,11 @@ def split_messages(get_list, count):
     return [get_list[i:i + count] for i in range(0, len(get_list), count)]
 
 
-# Обработка кнопки "Управление товарами"
+# Обработка кнопки "Управление формулами"
 @dp.message_handler(IsAdmin(), text="Управление формулами", state="*")
 async def general_functions(message: types.Message, state: FSMContext):
     await state.finish()
-    await message.answer("🎁 Редактирование товаров, разделов и категорий 📜",
+    await message.answer("Редактирование формул",
                          reply_markup=items_default)
 
 
@@ -32,7 +32,7 @@ async def general_functions(message: types.Message, state: FSMContext):
                                             f"<code></code>")
 
 
-# Получение списка всех позиций
+# Получение списка всех формул
 @dp.message_handler(IsAdmin(), text="/getposition", state="*")
 async def get_chat_id(message: types.Message, state: FSMContext):
     await state.finish()
@@ -41,7 +41,7 @@ async def get_chat_id(message: types.Message, state: FSMContext):
     get_items = get_all_positionsx()
     len_items = len(get_items)
     if len_items >= 1:
-        await message.answer("<b Все позиции</b>\n➖➖➖➖➖➖➖➖➖➖➖➖➖\n")
+        await message.answer("<b Все формулы</b>\n------------------\n")
         for item in get_items:
             save_items.append(f"<code>{item[2]}</code>")
         if len_items >= 35:
@@ -56,4 +56,4 @@ async def get_chat_id(message: types.Message, state: FSMContext):
             send_message = "\n".join(save_items)
             await message.answer(send_message)
     else:
-        await message.answer("<b>Позиции отсутствуют</b>")
+        await message.answer("<b>Формулы отсутствуют</b>")

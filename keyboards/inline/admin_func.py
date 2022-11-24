@@ -38,7 +38,7 @@ def open_edit_position_func(position_id, category_id, remover):
     open_item_keyboard = InlineKeyboardMarkup()
     get_position = get_positionx("*", position_id=position_id)
 
-    messages = "<b>Редактирование позиции:</b>\n" \
+    messages = "<b>Редактирование формулы:</b>\n" \
                "➖➖➖➖➖➖➖➖➖➖➖➖➖\n" \
                f"<b>Название:</b> <code>{get_position[2]}</code>\n" \
                f"<b>Формула:</b> <code>{get_position[3]}</code>\n"

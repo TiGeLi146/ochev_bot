@@ -23,6 +23,13 @@ async def bot_start(message: types.Message, state: FSMContext):
     #         if message.from_user.username.lower() != get_user_id[2]:
     #             update_userx(get_user_id[1], user_login=message.from_user.username.lower())
 
+    # await message.answer("<b>Бот готов к использованию.</b>\n"
+    #                      "Если не появились вспомогательные кнопки\n"
+    #                      "Введите /start",
+    #                      "Для просмотра нужной вам формулы нажмите на кнопку 'Смотреть формулы'\nЗатем выберите "
+    #                      "предмет, и вы увидите формулы по этому предмету.",
+    #                      reply_markup=check_user_out_func(message.from_user.id))
+
     await message.answer("<b>Бот готов к использованию.</b>\n"
                          "Если не появились вспомогательные кнопки\n"
                          "Введите /start",
