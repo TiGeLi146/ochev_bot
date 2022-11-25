@@ -422,16 +422,13 @@ async def input_new_position_name(message: types.Message, state: FSMContext):
         remover = data["here_cache_position_remover"]
     update_positionx(position_id, position_name=message.text)
 
-    messages, keyboard, have_photo = open_edit_position_func(position_id, category_id, remover)
+    messages, keyboard = open_edit_position_func(position_id, category_id, remover)
     await message.answer("<b>Название формулы было успешно изменено</b>", reply_markup=items_default)
     await state.finish()
 
     get_position = get_positionx("*", position_id=position_id)
     await bot.delete_message(message.from_user.id, message.message_id)
-    if have_photo:
-        await message.answer_photo(get_position[5], messages, reply_markup=keyboard)
-    else:
-        await message.answer(messages, reply_markup=keyboard)
+    await message.answer(messages, reply_markup=keyboard)
 
 
 # Изменение формулы
