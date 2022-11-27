@@ -17,7 +17,7 @@ async def show_search(message: types.Message, state: FSMContext):
     await state.finish()
     get_categories = get_all_categoriesx()
     if len(get_categories) >= 1:
-        get_kb = buy_item_open_category_ap(0)
+        get_kb = show_formula_open_category_ap(0)
         await message.answer("<b>Выберите нужный предмет:</b>", reply_markup=get_kb)
     else:
         await message.answer("<b>Формулы в данное время отсутствуют.</b>")
@@ -27,13 +27,13 @@ async def show_search(message: types.Message, state: FSMContext):
 ######################################### ПРОСМОТР ФОРМУЛ #######################################
 # Открытие категории для просмотра
 @dp.callback_query_handler(text_startswith="buy_open_category", state="*")
-async def open_category_for_buy_item(call: CallbackQuery, state: FSMContext):
+async def open_category_for_show_formula(call: CallbackQuery, state: FSMContext):
     category_id = int(call.data.split(":")[1])
     get_category = get_categoryx("*", category_id=category_id)
-    get_positions = get_positionsx("*", category_id=category_id)
+    get_formulas = get_formulasx("*", category_id=category_id)
 
-    get_kb = buy_item_item_position_ap(0, category_id)
-    if len(get_positions) >= 1:
+    get_kb = show_formula_item_position_ap(0, category_id)
+    if len(get_formulas) >= 1:
         await call.message.edit_text("<b>Выберите формулу:</b>",
                                      reply_markup=get_kb)
     else:
@@ -41,33 +41,33 @@ async def open_category_for_buy_item(call: CallbackQuery, state: FSMContext):
 
 
 # Вернуться к предыдущей категории при просмотре
-@dp.callback_query_handler(text_startswith="back_buy_item_to_category", state="*")
-async def back_category_for_buy_item(call: CallbackQuery, state: FSMContext):
+@dp.callback_query_handler(text_startswith="back_show_formula_to_category", state="*")
+async def back_category_for_show_formula(call: CallbackQuery, state: FSMContext):
     await call.message.edit_text("<b>Выберите нужный предмет:</b>",
-                                 reply_markup=buy_item_open_category_ap(0))
+                                 reply_markup=show_formula_open_category_ap(0))
 
 
 # Следующая страница категорий при просмотре
 @dp.callback_query_handler(text_startswith="buy_category_nextp", state="*")
-async def buy_item_next_page_category(call: CallbackQuery, state: FSMContext):
+async def show_formula_next_page_category(call: CallbackQuery, state: FSMContext):
     remover = int(call.data.split(":")[1])
 
     await call.message.edit_text("<b>Выберите нужный предмет:</b>",
-                                 reply_markup=buy_item_next_page_category_ap(remover))
+                                 reply_markup=show_formula_next_page_category_ap(remover))
 
 
 # Предыдущая страница категорий при просмотре
 @dp.callback_query_handler(text_startswith="buy_category_prevp", state="*")
-async def buy_item_prev_page_category(call: CallbackQuery, state: FSMContext):
+async def show_formula_prev_page_category(call: CallbackQuery, state: FSMContext):
     remover = int(call.data.split(":")[1])
 
     await call.message.edit_text("<b>Выберите нужный предмет:</b>",
-                                 reply_markup=buy_item_previous_page_category_ap(remover))
+                                 reply_markup=show_formula_previous_page_category_ap(remover))
 
 
 # Следующая страница формул
 @dp.callback_query_handler(text_startswith="buy_position_nextp", state="*")
-async def buy_item_next_page_position(call: CallbackQuery, state: FSMContext):
+async def show_formula_next_page_position(call: CallbackQuery, state: FSMContext):
     remover = int(call.data.split(":")[1])
     category_id = int(call.data.split(":")[2])
 
@@ -77,7 +77,7 @@ async def buy_item_next_page_position(call: CallbackQuery, state: FSMContext):
 
 # Предыдущая страница формул
 @dp.callback_query_handler(text_startswith="buy_position_prevp", state="*")
-async def buy_item_prev_page_position(call: CallbackQuery, state: FSMContext):
+async def show_formula_prev_page_position(call: CallbackQuery, state: FSMContext):
     remover = int(call.data.split(":")[1])
     category_id = int(call.data.split(":")[2])
 
@@ -86,26 +86,26 @@ async def buy_item_prev_page_position(call: CallbackQuery, state: FSMContext):
 
 
 # Возвращение к страницам формул
-@dp.callback_query_handler(text_startswith="back_buy_item_position", state="*")
-async def buy_item_next_page_position(call: CallbackQuery, state: FSMContext):
+@dp.callback_query_handler(text_startswith="back_show_formula_position", state="*")
+async def show_formula_next_page_position(call: CallbackQuery, state: FSMContext):
     remover = int(call.data.split(":")[1])
     category_id = int(call.data.split(":")[2])
 
     await call.message.delete()
     await call.message.answer("<b>Выберите нужную формулу:</b>",
-                              reply_markup=buy_item_item_position_ap(remover, category_id))
+                              reply_markup=show_formula_item_position_ap(remover, category_id))
 
 
 # Отправление формулы отдельным сообщением
 @dp.callback_query_handler(text_startswith="buy_open_position", state="*")
-async def buy_item_next_page_position(call: CallbackQuery, state: FSMContext):
+async def show_formula_next_page_position(call: CallbackQuery, state: FSMContext):
     position_id = int(call.data.split(":")[1])
     remover = int(call.data.split(":")[2])
     category_id = int(call.data.split(":")[3])
 
     print(call.data)
 
-    get_positions = get_positionx("*", category_id=category_id, position_id=position_id)
+    get_formulas = get_positionx("*", category_id=category_id, position_id=position_id)
 
-    await call.message.edit_text(f"{get_positions[2]} | {get_positions[3]}",
+    await call.message.edit_text(f"{get_formulas[2]} | {get_formulas[3]}",
                                  reply_markup=print_formula(remover, category_id))

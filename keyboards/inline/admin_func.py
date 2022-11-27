@@ -1,11 +1,11 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-from utils.db_api.sqlite import get_positionx, get_positionsx, get_categoryx
+from utils.db_api.sqlite import get_positionx, get_formulasx, get_categoryx
 
 
 def edit_category_func(category_id, remover):
     category_keyboard = InlineKeyboardMarkup()
-    get_fat_count = len(get_positionsx("*", category_id=category_id))
+    get_fat_count = len(get_formulasx("*", category_id=category_id))
     get_category = get_categoryx("*", category_id=category_id)
 
     messages = "<b>Выберите действие с категорией</b>\n" \

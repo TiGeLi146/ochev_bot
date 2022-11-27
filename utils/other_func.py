@@ -1,4 +1,4 @@
-# Очистка имени пользователя от тэгов
+# Очистка имени пользователя от тегов
 def clear_firstname(firstname):
     if "<" in firstname: firstname = firstname.replace("<", "*")
     if ">" in firstname: firstname = firstname.replace(">", "*")

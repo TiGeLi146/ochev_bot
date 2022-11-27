@@ -203,7 +203,7 @@ def get_positionx(what_select, **kwargs):
 
 
 # Получение формул
-def get_positionsx(what_select, **kwargs):
+def get_formulasx(what_select, **kwargs):
     with sqlite3.connect(path_to_db) as db:
         sql = f"SELECT {what_select} FROM storage_position WHERE "
         sql, parameters = get_format_args(sql, kwargs)

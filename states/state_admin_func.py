@@ -9,15 +9,15 @@ class StorageCategory(StatesGroup):
     here_cache_category_remover = State()
 
 class StoragePosition(StatesGroup):
-    here_input_position_discription = State()
+    here_input_position_description = State()
     here_input_position_price = State()
     here_input_position_image = State()
     here_input_position_name = State()
 
-    here_change_position_discription = State()
-    here_change_position_price = State()
+    here_change_position_description = State()
+    here_change_formula_form = State()
     here_change_position_image = State()
-    here_change_position_name = State()
+    here_change_formula_name = State()
 
     here_cache_category_id = State()
     here_cache_position_id = State()
