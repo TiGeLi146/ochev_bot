@@ -504,5 +504,3 @@ def print_formula(remover, category_id):
     keyboard.add(InlineKeyboardButton("⬅ Вернуться ↩",
                                       callback_data=f"back_show_formula_to_category"))
     return keyboard
-
-
